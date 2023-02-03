@@ -187,7 +187,6 @@ export class Main extends Component {
     if (currentTime === undefined) currentTime=0;
     this.setState({currentTime: currentTime});
   }
-  
   getPlay = (showPlayBack) => {
     console.log("reset playback");
     this.child.current.closePlayback();
@@ -228,42 +227,8 @@ export class Main extends Component {
     
   
     function onSelect(id) {
-      if (id > 1 && id !== 7){
-        var check = undefined;
-        if (id === 6) {
-          if (VideoSegment.length < 4) check=8;
-          else check=3;
-        }
-        else if (id === 5) check=6;
-        else if (id === 4) {
-          if (VideoSegment.length > 4) check=5;
-          else check=id-1;
-        }
-        else check = id-1;
-        var segment = VideoSegment.filter(segment => segment.segmentId === check)[0];
-        if (segment.start === "" || segment.end === "") {
-          alert("Make sure you have filled out the previous segment entries before you select a new one");
-          // segmentId = id-1;
-          return;
-        }
-      }
       segmentId = id;
-      // background color
-      if (prevSegmentId !== segmentId) {
-        if (VideoSegment.filter(segment => segment.segmentId === prevSegmentId)[0]['IsChecked']) {
-          VideoSegment.filter(segment => segment.segmentId === prevSegmentId)[0]['color']="rgb(211, 211, 211)";
-        }
-        else {
-          VideoSegment.filter(segment => segment.segmentId === prevSegmentId)[0]['color']="rgba(0, 0, 0, 0)";
-        }
-      }
-      VideoSegment.filter(segment => segment.segmentId === segmentId)[0]['color']="#AFE1AF";
-      prevSegmentId = segmentId;
-      var Segment = SegmentJson.filter(view => view.id === parseInt(segmentId))[0].SegmentLabel;
-      instruction="Please Select the IN and OUT Points for the Segment "+Segment;
-      // definition=recommended_view.filter(view => view.segmentId === segmentId)[0].Definition;
       cameraId = recommended_view.filter(view => view.segmentId === parseInt(segmentId))[0].cameraId;
-      VideoSegment.filter(segment => segment.segmentId === prevSegmentId)[0].cameraId = cameraId;
       view = recommended_view.filter(view => view.segmentId === parseInt(segmentId))[0].viewType;
     }
     function selectTimestamp(position, id) {
@@ -274,9 +239,6 @@ export class Main extends Component {
       }
       document.getElementsByClassName("react-video-player")[0].currentTime=time/30;
       currentTime = time/30;
-    }
-    function changeTimestamp(e, position, id) {
-      VideoSegment.filter(segment => segment.segmentId === id)[0][position] = parseInt(e.target.value);
     }
     
     function onPlayback(segmentId) {

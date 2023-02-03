@@ -22,10 +22,24 @@ export class Dropdown extends Component {
   handleClick(event: React.MouseEvent<HTMLElement>) {
     this.setState({anchorEl: event.currentTarget});
     this.setState({open: true});
+    console.log(event.detail);
+    if (event.detail == 2) window.location.href = '/';
   }
   handleClose() {
-    this.setState({anchorEl: null});
+    // this.setState({anchorEl: null});
     this.setState({open: false});
+    window.location.reload();
+  }
+  componentDidMount() {
+    this.setState({
+        pth: this.props.pth
+    });
+}
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.pth !== prevProps.pth) {
+      this.componentDidMount();
+    }
   }
   render(){
     var {anchorEl, open, pth}=this.state;
@@ -36,16 +50,17 @@ export class Dropdown extends Component {
           aria-controls={open ? 'fade-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
-          onClick={(e)=>{
-            switch (e.detail) {
-              case 1: // single click: open dropdown menu
-                this.handleClick();
-                break;
-              case 2: // double click: go to homepage
-                window.location.href = '/';
-                break;
-            }
-          }
+          onClick={
+            // (e)=>{
+            // switch (e.detail) {
+            //   case 1: // single click: open dropdown menu
+                this.handleClick//();
+          //       break;
+          //     case 2: // double click: go to homepage
+          //       window.location.href = '/';
+          //       break;
+          //   }
+          // }
           }
         >
           <h1>Arat Rating</h1>
@@ -66,19 +81,26 @@ export class Dropdown extends Component {
             }
           }}
         >
+          <MenuItem onClick={this.handleClose} key={"home"}>
+            <NavLink to={"/"} id={"home"} onClick={()=>{
+              this.handleClose();
+            }}>
+              <h2>Home</h2>
+            </NavLink>
+          </MenuItem>
           {
-            pth.map
+            pth ? pth.map
             (
               list=>
               <MenuItem onClick={this.handleClose} key={"PTH"+list.id}>
                 <NavLink to={"/Rating"+list.id} id={list.id} onClick={()=>{
-                  console.log("hello");
-                  this.handlePopoverClose();
+                  this.handleClose();
+                  
                 }}>
                   <h2>Patient {list['patient']['patientCode']}, Task {list.taskId}, Hand {list.handId}</h2>
                 </NavLink>
               </MenuItem>
-            )
+            ) : null
           } 
         </Menu>
     </div>
