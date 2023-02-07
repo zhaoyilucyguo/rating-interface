@@ -8,6 +8,7 @@ export class Rating extends Component{
       this.state = {
         display: "block",
         TaskID: this.props.values.TaskId,
+        onSelect: this.props.onSelect,
         Type: 1,
         firstTask: 0,
         Types: {
@@ -54,12 +55,14 @@ export class Rating extends Component{
         TaskID,
         Types,
         Sequence,
-        firstTask
+        firstTask,
       } = this.state;
+      const { onSelect}=this.props;
     const values = { 
         Type,
         TaskID,
-        firstTask
+        firstTask,
+        onSelect
     };
     return (
     <div className="container-fluid">  
@@ -72,6 +75,7 @@ export class Rating extends Component{
     </Stepper>
     <Start 
     values={values}
+    onSelect={onSelect}
     parentCallback = {this.handleCallback}
     /> 
      

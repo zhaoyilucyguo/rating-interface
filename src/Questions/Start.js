@@ -13,6 +13,7 @@ import NextSeg from './NextSeg';
 export class Start extends Component {
     state = {
         step: 1, 
+        onSelect: this.props.onSelect,
         TaskID: this.props.values.TaskID,
         firstTask: this.props.values.firstTask,
         Type: this.props.values.Type, //task or segment
@@ -120,6 +121,7 @@ export class Start extends Component {
         this.setState({
             Type: Type
         });
+        this.state.onSelect(this.state.Types[Type]);
         // reset
         this.setState({
             Impairments: []
@@ -305,9 +307,6 @@ export class Start extends Component {
     }
     // go back to prev step.
     prevStep = (input) => {
-        var {
-            step
-        } = this.state;
         this.setState({
             step: input
         });
@@ -359,7 +358,6 @@ export class Start extends Component {
         this.props.parentCallback(input1, input2);
         // event.preventDefault();
     }
-
   render() {
     const { step, Type, Types, result, TaskID, SegInitialized, Rating } = this.state;
     const values = { Type, Types, result, TaskID, SegInitialized, Rating };

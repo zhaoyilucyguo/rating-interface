@@ -1,12 +1,10 @@
 import * as React from 'react';
 import './App.css';
 import { Component } from 'react';
-import { Route, Routes, BrowserRouter, NavLink } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import axios from 'axios';
 import { Main } from './components/Main';
-import { Rating } from './Questions/Rating';
 import Home from './components/Home';
-import { Button, Menu, MenuItem } from '@mui/material';
 import Dropdown from './components/Dropdown';
 // import { Home } from './components/Home';
 
@@ -21,13 +19,11 @@ class App extends Component{
     // this.render=this.render.bind(this);
 }
 componentDidMount() {
-  // axios.get('https://localhost:44305/api/Segmentation/GetPatientTaskInformation',{ crossdomain: true })
     axios.get(`http://localhost:5000/PatientTaskHandMapping`)
     .then(res => {
       const data =res.data;
       const PatientTaskHandMapping = data//.filter(list => list.IsSubmitted===1);
       this.setState({ PatientTaskHandMapping });
-      console.log(PatientTaskHandMapping);
     })
 }
 

@@ -70,7 +70,7 @@ export class Impaired extends Component {
               {/* <FormControlLabel control={<Checkbox onClick={handleChange('Impairments', 'Arm')}/>} label="Arm" />
               <FormControlLabel control={<Checkbox onClick={handleChange('Impairments', 'Shoulder')}/>} label="Shoulder" />
               <FormControlLabel control={<Checkbox onClick={handleChange('Impairments', 'Hand')}/>} label="Hand" /> */}
-            </FormGroup>k
+            </FormGroup>
            
             <Button
                 label="Back"

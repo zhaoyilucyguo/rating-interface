@@ -28,7 +28,7 @@ export class Impaired extends Component {
       <ThemeProvider theme={theme}>
         <div>
             <AppBar title="Rating" />
-            <h1>Did any of the movement quality elements important to the execution of the segment show a level of impairment that made the execution challenging?</h1>
+            <h1>Did the movement show any impairment?</h1>
             <List sx={style} component="nav" aria-label="mailbox folders">
                 <ListItem
                   onClick={handleChange('Impaired', 1)}
