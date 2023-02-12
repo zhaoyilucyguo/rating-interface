@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { List, ListItem, Divider, AppBar, Button } from '@mui/material';
+import { createTheme, ThemeProvider, alpha } from '@mui/material/styles';
+import { List, ListItem, Divider, AppBar, Button, Typography } from '@mui/material';
 import { orange } from '@mui/material/colors';
 
 const style = {
@@ -28,16 +28,28 @@ export class Impaired extends Component {
       <ThemeProvider theme={theme}>
         <div>
             <AppBar title="Rating" />
-            <h1>Did the movement show any impairment?</h1>
+            <Typography variant="h6" gutterBottom>
+            Did the movement show any impairment?
+            </Typography>
             <List sx={style} component="nav" aria-label="mailbox folders">
                 <ListItem
                   onClick={handleChange('Impaired', 1)}
+                  sx={{
+                    '&:hover':{
+                      boxShadow: `0px 0px 0px 2px ${alpha(theme.palette.success.main, 0.16)}`
+                    }
+                  }}
                 >
                     Yes
                 </ListItem>
                 <Divider />
                 <ListItem
                   onClick={handleChange('Impaired', 0)}
+                  sx={{
+                    '&:hover':{
+                      boxShadow: `0px 0px 0px 2px ${alpha(theme.palette.success.main, 0.16)}`
+                    }
+                  }}
                 >
                     No
                 </ListItem>

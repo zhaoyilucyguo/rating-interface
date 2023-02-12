@@ -63,7 +63,7 @@ export class Dropdown extends Component {
           // }
           }
         >
-          <h1>Arat Rating</h1>
+        <Typography variant="h4" sx={{ paddingX: 8 }}>Arat Rating</Typography>
         </Button>
         <Menu
           id="fade-menu"
@@ -77,15 +77,18 @@ export class Dropdown extends Component {
           PaperProps={{
             style: {
               height: '90%',
-              width: '30%'
+              width: '30%',
+              // padding: 8,
+              margin: "0px 0px 0px 50px"
             }
           }}
         >
           <MenuItem onClick={this.handleClose} key={"home"}>
-            <NavLink to={"/"} id={"home"} onClick={()=>{
+            <NavLink to={"/"} id={"home"} style={{ textDecoration: 'none' }}
+            onClick={()=>{
               this.handleClose();
             }}>
-              <h2>Home</h2>
+              <Typography>Home</Typography>
             </NavLink>
           </MenuItem>
           {
@@ -93,11 +96,12 @@ export class Dropdown extends Component {
             (
               list=>
               <MenuItem onClick={this.handleClose} key={"PTH"+list.id}>
-                <NavLink to={"/Rating"+list.id} id={list.id} onClick={()=>{
+                <NavLink to={"/Rating"+list.id} id={list.id} style={{ textDecoration: 'none' }}
+                onClick={()=>{
                   this.handleClose();
                   
                 }}>
-                  <h2>Patient {list['patient']['patientCode']}, Task {list.taskId}, Hand {list.handId}</h2>
+                  <Typography>Patient {list['patient']['patientCode']}, Task {list.taskId}, Hand {list.handId}</Typography>
                 </NavLink>
               </MenuItem>
             ) : null

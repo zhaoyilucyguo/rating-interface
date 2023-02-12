@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { AppBar, Button, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
+import { AppBar, Button, FormGroup, FormControlLabel, Checkbox, Typography } from '@mui/material';
 import { orange } from '@mui/material/colors';
 // import FormGroup from '@mui/material/FormGroup';
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -59,7 +59,9 @@ export class Impaired extends Component {
       <ThemeProvider theme={theme}>
         <div>
             <AppBar title="Rating" />
-            <h1>Please select the movement qualities that showed impaired from the list below:</h1>
+            <Typography variant="h6" gutterBottom>
+            Please select the movement qualities that showed impaired from the list below:
+            </Typography>
             <FormGroup>
             {
               this.state.impairments[values.Type]

@@ -74,9 +74,9 @@ export class Rating extends Component{
         ))}
     </Stepper>
     <Start 
-    values={values}
-    onSelect={onSelect}
-    parentCallback = {this.handleCallback}
+      values={values}
+      onSelect={onSelect}
+      parentCallback = {this.handleCallback}
     /> 
      
       </div>

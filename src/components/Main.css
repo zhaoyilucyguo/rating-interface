@@ -1,13 +1,15 @@
 /* .PlayVideo, */
 .SideBar{
-    padding-right: 1%;
-    padding-left: 1%;
-    padding-top: 2%;
-    width: 38%;
+    padding-right: 0%;
+    padding-left: 0%;
+    padding-top: 0%;
+    width: 40%;
 }
 .PlayVideo{
-    width: 62%;
-    padding-right: 1%;
+    width: 60%;
+    /* padding-right: 1%;
+    padding-left: 2%; */
+    display: flex;
 }
 #video{
     width: 100%;
@@ -17,37 +19,21 @@
     flex-direction: row;
     font-size: 1em;
 }
-.buttons{
-    display: flex;
-}
-.instruction{
-    display: flex;
-}
-.sidebarVideo {
-    width: 60%;
-    height: auto;
-}
-.viewHeader {
+/* .viewHeader {
     display: flex;
     width: 100%;
-}
-input {
-    width: 100%;
-}
-/* .TimeStamp {
-    padding-top: 3%;
 } */
-.TimestampHeader,
-.feedbackHeader{
-    display: flex;
+/* input {
+    width: 100%;
+} */
+.Rating {
+    padding-top: 10%;
 }
-.video-preview{
-    display: flex;
-    padding-top: 4%;
+.video-preview:hover {
+    border-style: groove;
+    border-radius: 1%;
 }
-.SwitchView,
-.TimeStamp,
-.Feedback {
+.Rating {
     padding: 0% 4% 4% 4%;
     border-style: groove;
     border-radius: 1%;
@@ -55,19 +41,22 @@ input {
 .submit{
     float: right;
 }
-.next{
-    float: right;
+.video-play{
+    width: 90%;
 }
-.check{
-    width: 25px;
-    height: 25px;
+.changeColor {
+    color: black;
+    /* background-color: aqua; */
+    justify-content: center;
 }
-textarea{
-    width: 100%
+.changeColor:hover {
+    color: white;
 }
-.feedbackTable{
-    width: 100%;
-}
-.submitFeedback{
-    float: right;
+.chevron{
+    /* top: 50%; */
+    /* display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; */
+  min-height: 80vh;
 }

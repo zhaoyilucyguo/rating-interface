@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { AppBar, Button } from '@mui/material';
+import { AppBar, Button, Typography } from '@mui/material';
 import { orange, blue } from '@mui/material/colors';
 
 export class NextSeg extends Component {
@@ -26,9 +26,12 @@ export class NextSeg extends Component {
       <ThemeProvider theme={theme}>
         <div>
             <AppBar title="Rating" />
-            <h1>Score for {values.Types[values.Type]} is {values.Rating}</h1>
-            <h1>Now move on to the next segment</h1>
-            
+            <Typography variant="h6" gutterBottom>
+            Score for {values.Types[values.Type]} is {values.Rating}
+            </Typography>
+            <Typography variant="h6" gutterBottom>
+            Now move on to the next segment
+            </Typography>
             <Button
                 label="Back"
                 style={StyleSheet.button}

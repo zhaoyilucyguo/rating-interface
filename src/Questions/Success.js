@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { AppBar, Button } from '@mui/material';
+import { AppBar, Button, Typography } from '@mui/material';
 import { orange, blue } from '@mui/material/colors';
 
 export class Success extends Component {
@@ -25,7 +25,9 @@ export class Success extends Component {
       <ThemeProvider theme={theme}>
         <div>
             <AppBar title="Rating" />
-            <h1>You have successfully finished the rating for this task!</h1>
+            <Typography variant="h6" gutterBottom>
+            You have successfully finished the rating for this task!
+            </Typography>
             
             <Button
                 label="Back"

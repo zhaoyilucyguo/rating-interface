@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { List, ListItem, Divider, AppBar, Button } from '@mui/material';
+import { createTheme, ThemeProvider, alpha } from '@mui/material/styles';
+import { List, ListItem, Divider, AppBar, Button, Typography } from '@mui/material';
 import { orange, blue } from '@mui/material/colors';
 
 export class Time extends Component {
@@ -25,16 +25,28 @@ export class Time extends Component {
       <ThemeProvider theme={theme}>
         <div>
             <AppBar title="Rating" />
-            <h1>Was the segment performed within a reasonable amount of time?</h1>
+            <Typography variant="h6" gutterBottom>
+            Was the segment performed within a reasonable amount of time?
+            </Typography>
             <List component="nav" aria-label="mailbox folders">
                 <ListItem 
                 onClick={handleChange('Time', 0)}
+                sx={{
+                  '&:hover':{
+                    boxShadow: `0px 0px 0px 2px ${alpha(theme.palette.success.main, 0.16)}`
+                  }
+                }}
                 >
                     Yes
                 </ListItem>
                 <Divider />
                 <ListItem 
                 onClick={handleChange('Time', 1)}
+                sx={{
+                  '&:hover':{
+                    boxShadow: `0px 0px 0px 2px ${alpha(theme.palette.success.main, 0.16)}`
+                  }
+                }}
                 >
                     No
                 </ListItem>

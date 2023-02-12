@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { AppBar, Button } from '@mui/material';
+import { AppBar, Button, Typography, ListItem, ListItemText } from '@mui/material';
 import { orange, blue } from '@mui/material/colors';
 
 export class Confirm extends Component {
@@ -26,37 +26,16 @@ export class Confirm extends Component {
       <ThemeProvider theme={theme}>
         <div>
             <AppBar title="Rating" />
-            <h1>Confirm</h1>
-            <h2>Task ID: {values.TaskID}</h2>
+            <Typography variant="h6" gutterBottom>
+            Rating summary
+            </Typography>
             {
               Object.keys(values.result)
               .map(res=>
-                <div key={res}>
-                  <p><b>Score for {res}</b></p>
-                  {/* <p>
-                    Does the patient complete this {res}? 
-                    {" " + values.result[res].Completed==1 ? "Yes" : "No"}
-                  </p>
-                  <p>
-                    {res == "Task" ? "Is M&TR initialized?" : "Is the movement initialized?"} 
-                    {" " + values.result[res].Initialized == 1 ? "Yes" : values.result[res].Initialized == 0 ? "No" : "Undefined"}
-                  </p>
-                  <p>
-                    Does the movement complete in time? 
-                    {values.result[res].Time == 1 ? "No" : values.result[res].Time == 0 ? "Yes" : "Undefined"}
-                  </p>
-                  <p>
-                    Does the movement shows any significant impairments?
-                    {" " + values.result[res].Impaired == 1 ? "Yes" : values.result[res].Impaired == 0 ? "No" : "Undefined"}
-                  </p>
-                  <p>
-                    What are the impairments?
-                    {" " + values.result[res].Impairments}
-                  </p> */}
-                  <p>
-                    {values.result[res].Rating.substring(0, 1)}
-                  </p>
-                </div>
+                <ListItem key={res} sx={{ py: 1, px: 0 }}>
+                  <ListItemText primary={res}/>
+                  <Typography variant="body2">{values.result[res].Rating.substring(0, 1)}</Typography>
+                </ListItem>
               )
             }
             <Button
