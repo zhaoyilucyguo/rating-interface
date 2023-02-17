@@ -15,35 +15,30 @@ export class Impaired extends Component {
         nextStep: this.props.nextStep,
         handleChange: this.props.handleChange,
         values: this.props.values,
+        impairment_lst: {
+          'SEAFR': 'shoulder elevation, abduction, flexion & external rotation', 
+          'TS': 'trunk stabilization', 
+          'ROME': 'range of motion for elbow',
+          'FPS': 'forearm pronation/supination',
+          'WPAT': 'wrist position aligned to task',
+          'HA': 'hand aperture',
+          'DP': 'digit positioning',
+          'DPO': 'digit positioning and orientation',
+          'SAT': 'smoothness and accuracy in limb trajectory',
+          'FPO': 'final placement of object as appropriate for the task',
+          'DMR': 'digit movement during release',
+          'THS': 'trunk & head stabilization',
+          'PP': 'palmar positioning (for gross motor section)',
+        },
         impairments: {
-          2: ['shoulder elevation', 
-          'shoulder flexion or abduction', 
-          'trunk stabilization',
-          'range of motion for elbow',
-          'trunk sway, flexion and rotation',
-          'forearm pronation/supination',
-          'wrist position not aligned to task',
-          'hand aperture',
-          'digit positioning'
-            ], //IPT
-          3: [], //"GI",
-          4: ['digit positioning and orientation',
-          'smoothness and accuracy in limb trajectory',
-          'forearm orientation (supination/pronation)',
-          'trunk movement and position'
-        ], //M&TR
-          5: [], //"GP",
-          6: [], //"TG",
-          7: ['digit positioning and orientation',
-          'smoothness and accuracy in limb trajectory',
-          'forearm orientation (supination/pronation)',
-          'trunk movement and position'
-        ], //M&TR_2
-          8: ['final placement of object',
-          'digit movement during release',
-          'limb orientation (pronation/supination) during placement and release',
-          'trunk sway/rotation'
-        ] // P&R
+          2: ['SEAFR', 'TS', 'ROME', 'FPS'], //IP
+          3: ['ROME', 'THS', 'FPS', 'SEAFR'], //"GIP",
+          4: ['DPO', 'SAT', 'FPS', 'TS'], //M&TR
+          5: ['SEAFR', 'FPS', 'PP'], //"GT",
+          6: ['SEAFR', 'FPS', 'TS', 'WPAT'], //"TG",
+          7: ['DPO', 'SAT', 'FPS', 'TS'], //M&TR_2
+          8: ['FPO', 'DMR', 'FPS', 'TS'], // P&R
+          10: ['WPAT', 'HA', 'DP'] //T
         },
     }
   }
@@ -66,12 +61,14 @@ export class Impaired extends Component {
             {
               this.state.impairments[values.Type]
               .map(impairment=>
-                <FormControlLabel key={impairment} control={<Checkbox onClick={handleChange('Impairments', {impairment})}/>} label={impairment} />
+                <FormControlLabel 
+                key={impairment} 
+                control={
+                <Checkbox 
+                onClick={handleChange('Impairments', impairment)}/>} 
+                label={this.state.impairment_lst[impairment]} />
               )
             }
-              {/* <FormControlLabel control={<Checkbox onClick={handleChange('Impairments', 'Arm')}/>} label="Arm" />
-              <FormControlLabel control={<Checkbox onClick={handleChange('Impairments', 'Shoulder')}/>} label="Shoulder" />
-              <FormControlLabel control={<Checkbox onClick={handleChange('Impairments', 'Hand')}/>} label="Hand" /> */}
             </FormGroup>
            
             <Button

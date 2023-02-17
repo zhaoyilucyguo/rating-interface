@@ -19,7 +19,6 @@ export class Main extends Component {
       videos: [],
       cameraDic: {},
       recommended_view: [],
-      PatientTaskHandMapping1: [],
       Camera: [],
       Feedback: [],
       PatientTaskHandMappingId: this.props.PTHID,
@@ -148,12 +147,13 @@ export class Main extends Component {
       cameraDic, 
       cameraId,
       view,
-      SegmentJson,
       currentTime,
-      cameraDic
+      cameraDic,
+      PatientTaskHandMappingId
     } = this.state;
     const values = { 
       TaskId,
+      PatientTaskHandMappingId,
     };
     function switchView(id){
       view = Camera.filter(view => view.id === id)[0].ViewType;
