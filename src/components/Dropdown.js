@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import Popover from '@mui/material/Popover';
+import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
-import { Route, Routes, BrowserRouter, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 export class Dropdown extends Component {
@@ -13,58 +14,72 @@ export class Dropdown extends Component {
     super(props);
     this.state = {
       anchorEl: null,
-      pth: this.props.pth,
+      ptht: this.props.ptht,
       open: false
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
   handleClick(event: React.MouseEvent<HTMLElement>) {
-    this.setState({anchorEl: event.currentTarget});
-    this.setState({open: true});
-    console.log(event.detail);
-    if (event.detail == 2) window.location.href = '/';
+    event.preventDefault();
+    if (this.state.open === false){
+      this.setState({anchorEl: event.currentTarget});
+      this.setState({open: true});
+    }
+    else {
+      this.handleClose();
+    }
+  }
+  handleSignOut(){
+    window.location.href = '/';
   }
   handleClose() {
-    // this.setState({anchorEl: null});
+    this.setState({anchorEl: null});
     this.setState({open: false});
     window.location.reload();
   }
   componentDidMount() {
     this.setState({
-        pth: this.props.pth
+        ptht: this.props.ptht
     });
 }
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.pth !== prevProps.pth) {
+    if (this.props.ptht !== prevProps.ptht) {
       this.componentDidMount();
     }
   }
   render(){
-    var {anchorEl, open, pth}=this.state;
+    var {anchorEl, open, ptht}=this.state;
     return (
       <div>
-        <Button
-          id="fade-button"
-          aria-controls={open ? 'fade-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          onClick={
-            // (e)=>{
-            // switch (e.detail) {
-            //   case 1: // single click: open dropdown menu
-                this.handleClick//();
-          //       break;
-          //     case 2: // double click: go to homepage
-          //       window.location.href = '/';
-          //       break;
-          //   }
-          // }
-          }
-        >
-        <Typography variant="h4" sx={{ paddingX: 8 }}>Arat Rating</Typography>
-        </Button>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Button
+              id="fade-button"
+              aria-controls={open ? 'fade-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={
+                    this.handleClick
+              }
+            >
+            <Typography variant="h4" sx={{ paddingX: 5 }}>Arat Rating</Typography>
+          </Button>
+          <Button
+            id="fade-button"
+            aria-controls='fade-menu'
+            aria-haspopup="true"
+            aria-expanded='true'
+            onClick={
+                  this.handleSignOut
+            }
+          >
+          <LogoutIcon style={{ flex: 1 }}/>
+          </Button>
+        </Toolbar>
+          
+        
+        
         <Menu
           id="fade-menu"
           MenuListProps={{
@@ -72,7 +87,10 @@ export class Dropdown extends Component {
           }}
           anchorEl={anchorEl}
           open={open}
-          onClose={this.handleClose}
+          onClose={()=>{
+            this.setState({anchorEl: null});
+            this.setState({open: false});
+          }}
           TransitionComponent={Fade}
           PaperProps={{
             style: {
@@ -84,27 +102,30 @@ export class Dropdown extends Component {
           }}
         >
           <MenuItem onClick={this.handleClose} key={"home"}>
-            <NavLink to={"/"} id={"home"} style={{ textDecoration: 'none' }}
+            <NavLink to={"/home"} id={"home"} style={{ textDecoration: 'none' }}
             onClick={()=>{
-              this.handleClose();
+              // this.handleClose();
             }}>
               <Typography>Home</Typography>
             </NavLink>
           </MenuItem>
           {
-            pth ? pth.map
+            ptht.map
             (
               list=>
-              <MenuItem onClick={this.handleClose} key={"PTH"+list.id}>
-                <NavLink to={"/Rating"+list.id} id={list.id} style={{ textDecoration: 'none' }}
+              <MenuItem onClick={this.handleClose} key={"PTH"+list.patientTaskHandMappingId}>
+                <NavLink to={'/Rating'+list.patientTaskHandMappingId} id={list.patientTaskHandMappingId} style={{ textDecoration: 'none' }}
                 onClick={()=>{
-                  this.handleClose();
-                  
+                  // this.handleClose();
                 }}>
-                  <Typography>Patient {list['patient']['patientCode']}, Task {list.taskId}, Hand {list.handId}</Typography>
+                  <Typography>
+                    Patient {list.patientTaskHandMapping.patientId},
+                    Task {list.patientTaskHandMapping.taskId}, 
+                    Hand {list.patientTaskHandMapping.handId}
+                  </Typography>
                 </NavLink>
               </MenuItem>
-            ) : null
+            )
           } 
         </Menu>
     </div>

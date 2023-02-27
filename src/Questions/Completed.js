@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider, alpha } from '@mui/material/styles';
 import { List, ListItem, Divider, AppBar, Typography } from '@mui/material';
 import { orange, blue } from '@mui/material/colors';
 
+
 export class Completed extends Component {
   constructor(props){
     super(props);
@@ -31,7 +32,7 @@ export class Completed extends Component {
             /> */}
             <List component="nav" aria-label="mailbox folders">
                 <ListItem 
-                onClick={handleChange('Completed', 1)}
+                onClick={handleChange('IsCompleted', 1)}
                 sx={{
                   '&:hover':{
                     boxShadow: `0px 0px 0px 2px ${alpha(theme.palette.success.main, 0.16)}`
@@ -42,7 +43,7 @@ export class Completed extends Component {
                 </ListItem>
                 <Divider />
                 <ListItem 
-                onClick={handleChange('Completed', 0)}
+                onClick={handleChange('IsCompleted', 0)}
                 sx={{
                   '&:hover':{
                     boxShadow: `0px 0px 0px 2px ${alpha(theme.palette.success.main, 0.16)}`

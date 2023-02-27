@@ -14,33 +14,28 @@ export class Main extends Component {
     super(props);
     this.child = React.createRef();
     this.state = {
-      VideoSegment: [],
       GetSegment: {},
-      videos: [],
+      taskVideos: [],
+      segmentVideos: [],
+      displayVideos: [],
       cameraDic: {},
       recommended_view: [],
       Camera: [],
-      Feedback: [],
+      views_used_rec: [],
       PatientTaskHandMappingId: this.props.PTHID,
       TaskId: this.props.TASKID,
       PatientId: this.props.PATIENTID,
-      PatientCode: this.props.PATIENTCODE,
+      // PatientCode: this.props.PATIENTCODE,
       HandId: this.props.HANDID,
-      IsSubmitted: this.props.IsSubmitted,
+      NEXT: this.props.NEXT,
       segmentId: 1, // start at IPT
       SegmentJson: [],
       view: "",
       currentTime: 0,
       cameraId: 0,
-      prevSegmentId: 1,
-      timeEnd: -1,
-      Update: 0,
-      start: undefined,
-      end: undefined      
+      currentOnTask: true  // determine the folder for videos: Videos or TrimmedVideos    
     }
-
-    // this.render=this.render.bind(this);
-
+    this.child = React.createRef();
   }
  
   async componentDidMount() {
@@ -68,23 +63,14 @@ export class Main extends Component {
       const SegmentJson =res.data;
       this.setState({ SegmentJson });
     })
-
-    await axios.get(`http://localhost:5000/VideoSegment/`+this.state.PatientTaskHandMappingId)
-    .then(res => {
-      const GetSegment =res.data;
-      if (GetSegment.length){
-        var VideoSegment = GetSegment;
-        
-        this.setState({ VideoSegment });
-        this.setState({Update: 1});
-      }
-    })
+    var views_used_rec = [];
     await axios.get(`http://localhost:5000/TaskSegmentCameraMapping/`+this.state.PatientTaskHandMappingId)
     .then(res => {
       const data =res.data;
-      const recommended_view = data['taskSegmentHandCameraMapping'];
+      var recommended_view = [];
+      recommended_view = data['taskSegmentHandCameraMapping'];
       const fullvideos = data['files'];
-      var videos = [];
+      var displayVideos = [];
       var views_used_rec = []
       var cameraDic = {};
       var cameraCnt = 0;
@@ -94,19 +80,21 @@ export class Main extends Component {
       for (let j = 0; j < fullvideos.length; j++) {
         var curCamId = fullvideos[j].cameraId;
         if (views_used_rec.includes(curCamId)){
-          videos.push(fullvideos[j]);
+          displayVideos.push(fullvideos[j]);
           cameraCnt++;
           cameraDic[cameraCnt] = "camera"+curCamId;
           cameraDic["camera"+curCamId] = cameraCnt;
         }
       }
-      this.setState({ videos });
+      var taskVideos = displayVideos;
+      this.setState({taskVideos});
+      this.setState({ displayVideos: fullvideos });
       this.setState({ cameraDic:cameraDic });
+      this.setState({views_used_rec});
       var cameraId = 0;
       var view = '';
       if (this.state.TaskId >= 17) {
         this.setState({ segmentId: 7 });
-        this.setState({ prevSegmentId: 7 });
         cameraId = recommended_view.filter(view => view.segmentId === 7)[0].cameraId;
         view = recommended_view.filter(view => view.segmentId === 7)[0].viewType;
       }
@@ -118,25 +106,52 @@ export class Main extends Component {
       this.setState({ cameraId });
       this.setState({ view });
     })
+    await axios.get(`http://localhost:5000/SegmentFileInfo/`+this.state.PatientTaskHandMappingId)
+    .then(res => {
+      const data =res.data;
+      const fullvideos = data;
+      var segmentVideos = [];
+      for (let j = 0; j < fullvideos.length; j++) {
+        var curCamId = fullvideos[j].cameraId;
+        if (this.state.views_used_rec.includes(curCamId)){
+          segmentVideos.push(fullvideos[j]);
+        }
+      }
+      console.log(segmentVideos);
+      this.setState({ segmentVideos });
+    })
   }
   getTime = (currentTime) => {
     if (currentTime === undefined) currentTime=0;
     this.setState({currentTime: currentTime});
   }
   onSelect = (name) => {
-    if (name === "Task") return;
+    if (name === "Task" || name === "Revisit Task") {
+      this.setState({displayVideos: this.state.taskVideos});
+      this.setState({currentOnTask: true});
+      this.setState({cameraId: this.state.views_used_rec[0]}) // set view to the default view
+      return;
+    }
+    else if (name === "Confirm Scores" || name === undefined) {
+      return;
+    }
+    console.log(name);
     var segmentId = this.state.SegmentJson.filter(i=>i.SegmentLabel === name)[0].id;
     var cameraId = this.state.recommended_view.filter(view => view.segmentId === parseInt(segmentId))[0].cameraId;
     var view = this.state.recommended_view.filter(view => view.segmentId === parseInt(segmentId))[0].viewType;
     this.setState({segmentId: segmentId});
     this.setState({cameraId: cameraId});
     this.setState({view: view});
+    var displayVideos = this.state.segmentVideos.filter(view => view.segmentId === parseInt(segmentId));
+    this.setState({displayVideos});
+    this.setState({currentOnTask: false});
   }
-  
+  updateCamera=(id)=>{
+    this.child.current.updateCamera(id);
+  }
   render() {
     var {
-      VideoSegment,
-      videos,
+      displayVideos,
       recommended_view,
       TaskId,
       PatientId,
@@ -149,11 +164,18 @@ export class Main extends Component {
       view,
       currentTime,
       cameraDic,
-      PatientTaskHandMappingId
+      PatientTaskHandMappingId,
+      cameraId,
+      Camera,
+      currentOnTask,
+      NEXT
     } = this.state;
     const values = { 
       TaskId,
       PatientTaskHandMappingId,
+      cameraId,
+      Camera,
+      NEXT
     };
     function switchView(id){
       view = Camera.filter(view => view.id === id)[0].ViewType;
@@ -163,7 +185,7 @@ export class Main extends Component {
       var id = undefined;
       var index = cameraDic["camera"+cameraId];
       if (side === "right"){
-        if (index === videos.length) {
+        if (index === displayVideos.length) {
           id = cameraDic[1]
         }
         else {
@@ -172,7 +194,7 @@ export class Main extends Component {
       }
       else{
         if (index === 1) {
-          id = cameraDic[videos.length]
+          id = cameraDic[displayVideos.length]
         }
         else {
           id = cameraDic[index-1];
@@ -194,18 +216,25 @@ export class Main extends Component {
           onMouseOver={({target})=>target.style.color="#2596be"}
           onMouseOut={({target})=>target.style.color="black"}
           onClick={()=>{
-            this.setState({cameraId: switchCam("left")});
+            var id = switchCam("left");
+            this.setState({
+              cameraId: id
+            }, () => {
+                this.updateCamera(id);
+            });
           }}/>
           </span>
             {
-              videos.filter(video => video.cameraId === this.state.cameraId)
+              displayVideos.filter(video => video.cameraId === this.state.cameraId)
               .map((video, i)=>
                 <div className="video-play" key={video.fileName}>
                   <Typography component="h1" variant="h4" align="left">
                   Patient {PatientCode}, Task {TaskId}, {Camera.filter(view => view.id === video.cameraId)[0].ViewType} View
                   {/* Frame {document.getElementsByClassName("react-video-player")[0] ? Math.round(document.getElementsByClassName("react-video-player")[0].currentTime*30) : Math.round(currentTime*30)} */}
                   </Typography>
-                  <Video url={"./Videos/"+video.fileName} sendTime={this.getTime}></Video>
+                  <Video 
+                  url={currentOnTask? "./Videos/"+video.fileName : "./TrimmedVideos/"+video.fileName} 
+                  sendTime={this.getTime}></Video>
                 </div>
               )
             }
@@ -216,7 +245,12 @@ export class Main extends Component {
           onMouseOver={({target})=>target.style.color="#2596be"}
           onMouseOut={({target})=>target.style.color="black"}
           onClick={()=>{
-            this.setState({cameraId: switchCam("right")});
+            var id = switchCam("right");
+            this.setState({
+              cameraId: id
+            }, () => {
+                this.updateCamera(id);
+            });
           }}/>
           </span>
           </div>
@@ -230,6 +264,7 @@ export class Main extends Component {
             <Rating 
             values={values}
             onSelect={this.onSelect}
+            ref={this.child}
             />
             </Paper>
             </Container>

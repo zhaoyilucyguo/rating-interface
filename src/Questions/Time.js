@@ -7,12 +7,13 @@ export class Time extends Component {
   constructor(props){
     super(props);
     this.state = {
+      values: this.props.values,
         handleChange: this.props.handleChange,
         prevStep: this.props.prevStep
     }
   }
   render() {
-    const { handleChange, prevStep } = this.props;
+    const { values, handleChange, prevStep } = this.props;
     const theme = createTheme({
         status: {
           danger: orange[500],
@@ -26,7 +27,7 @@ export class Time extends Component {
         <div>
             <AppBar title="Rating" />
             <Typography variant="h6" gutterBottom>
-            Was the segment performed within a reasonable amount of time?
+            Was {values.Types[values.Type]} performed within a reasonable amount of time?
             </Typography>
             <List component="nav" aria-label="mailbox folders">
                 <ListItem 

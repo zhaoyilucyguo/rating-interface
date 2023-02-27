@@ -33,7 +33,7 @@ export class Impaired extends Component {
             </Typography>
             <List sx={style} component="nav" aria-label="mailbox folders">
                 <ListItem
-                  onClick={handleChange('Impaired', 1)}
+                  onClick={handleChange('IsImpaired', 1)}
                   sx={{
                     '&:hover':{
                       boxShadow: `0px 0px 0px 2px ${alpha(theme.palette.success.main, 0.16)}`
@@ -44,7 +44,7 @@ export class Impaired extends Component {
                 </ListItem>
                 <Divider />
                 <ListItem
-                  onClick={handleChange('Impaired', 0)}
+                  onClick={handleChange('IsImpaired', 0)}
                   sx={{
                     '&:hover':{
                       boxShadow: `0px 0px 0px 2px ${alpha(theme.palette.success.main, 0.16)}`
@@ -57,7 +57,7 @@ export class Impaired extends Component {
             <Button
                 label="Back"
                 style={StyleSheet.button}
-                onClick={()=>prevStep(values.Type === 1 ? 1 : 2)}
+                onClick={()=>prevStep(2)}
             >Back</Button>
         </div>
       </ThemeProvider>

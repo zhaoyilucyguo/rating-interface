@@ -30,7 +30,7 @@ export class NextSeg extends Component {
             Score for {values.Types[values.Type]} is {values.Rating}
             </Typography>
             <Typography variant="h6" gutterBottom>
-            Now move on to the next segment
+            Now move on to {values.Types[values.nType]}
             </Typography>
             <Button
                 label="Back"
@@ -38,8 +38,8 @@ export class NextSeg extends Component {
                 onClick={()=>
                   prevStep(
                     values.Type === 1 ? 
-                    values.Initialized === 1 ? 5 : 3 : 
-                    values.Initialized === 1 ? 5 : 4)}
+                    values.IsCompleted === 1 ? 5 : 3 : 
+                    values.IsCompleted === 1 ? values.IsImpaired === 1 ? 6 : 5 : 4)}
             >Back</Button>
             <Button
                 onClick={()=>nextStep()}
