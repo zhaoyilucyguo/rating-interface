@@ -29,7 +29,7 @@ export class MTRInitialized extends Component {
         <div>
             <AppBar title="Rating" />
             <Typography variant="h6" gutterBottom>
-            Was M&TR initialized?
+            Was MTR initialized?
             </Typography>
             <List sx={style} component="nav" aria-label="mailbox folders">
                 <ListItem

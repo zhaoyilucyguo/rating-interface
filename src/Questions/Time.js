@@ -27,7 +27,7 @@ export class Time extends Component {
         <div>
             <AppBar title="Rating" />
             <Typography variant="h6" gutterBottom>
-            Was {values.Types[values.Type]} performed within a reasonable amount of time?
+            {values.Types[values.Type]} was performed in {values.timeDurations[values.Types[values.Type]]} seconds. Is it within a reasonable amount of time?
             </Typography>
             <List component="nav" aria-label="mailbox folders">
                 <ListItem 

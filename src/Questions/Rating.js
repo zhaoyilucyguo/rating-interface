@@ -13,25 +13,26 @@ export class Rating extends Component{
         Camera: this.props.values.cameraId,
         onSelect: this.props.onSelect,
         nextPth: this.props.values.NEXT,
+        timeDurations: this.props.values.timeDurations,
         Type: 1,
         firstTask: 0,
         Types: {
             1: "Task",
             2: "IP",
             3: "GIP",
-            4: "M&TR",
+            4: "MTR",
             5: "GT",
             6: "TG",
-            7: "M&TR_2",
-            8: "P&R",
-            9: "Revisit Task",
+            7: "MTR_2",
+            8: "PR",
+            9: "Revisit",
             10: "T",
-            11: "Confirm Scores",
+            11: "Confirm",
         },
         GeneralSequence: {
-          1: ["Task", "IP", "T", "M&TR", "P&R", "Confirm Scores", "Revisit Task"],
-          2: ["Task", "IP", "T", "M&TR", "TG", "M&TR_2", "P&R", "Confirm Scores", "Revisit Task"],
-          3: ["Task", "GIP", "GT", "Confirm Scores", "Revisit Task"]
+          1: ["Task", "IP", "T", "MTR", "PR", "Confirm", "Revisit"],
+          2: ["Task", "IP", "T", "MTR", "TG", "MTR_2", "PR", "Confirm", "Revisit"],
+          3: ["Task", "GIP", "GT", "Confirm", "Revisit"]
         },
         Sequence:{
             1: 1,
@@ -40,7 +41,7 @@ export class Rating extends Component{
             4: 1,
             5: 1,
             6: 1,
-            7: 3,
+            7: 2,
             8: 1,
             9: 1,
             10: 1,
@@ -77,7 +78,8 @@ export class Rating extends Component{
       PatientTaskHandMappingId,
       cameraId,
       Camera,
-      nextPth
+      nextPth,
+      timeDurations
     } = this.state;
     const { onSelect}=this.props;
     const values = { 
@@ -88,13 +90,14 @@ export class Rating extends Component{
         PatientTaskHandMappingId,
         cameraId,
         Camera,
-        nextPth
+        nextPth,
+        timeDurations
     };
     return (
       <div className="container-fluid">  
         <Stepper activeStep={
           firstTask===1 && Type === 1 ? 
-          GeneralSequence[Sequence[TaskID]].indexOf("Revisit Task") : 
+          GeneralSequence[Sequence[TaskID]].indexOf("Revisit") : 
           GeneralSequence[Sequence[TaskID]].indexOf(Types[Type])
           } sx={{ pt: 3, pb: 5 }}>
             {GeneralSequence[Sequence[TaskID]].map((label) => (

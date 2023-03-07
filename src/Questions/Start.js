@@ -22,6 +22,7 @@ export class Start extends Component {
         cameraId: this.props.values.cameraId,
         Camera: this.props.values.Camera,
         nextPth: this.props.values.nextPth,
+        timeDurations: this.props.values.timeDurations,
         SegmentJson: [],
         revisitTask: undefined,
         Type: this.props.values.Type, //task or segment
@@ -49,13 +50,13 @@ export class Start extends Component {
             1: "Task",
             2: "IP",
             3: "GIP",
-            4: "M&TR",
+            4: "MTR",
             5: "GT",
             6: "TG",
-            7: "M&TR_2",
-            8: "P&R",
+            7: "MTR_2",
+            8: "PR",
             10: "T",
-            11: "Confirm Scores"
+            11: "Confirm"
         },
         result: {},
         tasksH: [],
@@ -81,6 +82,7 @@ export class Start extends Component {
                 var name = SegmentJson.filter(i=>i.id === id)[0].SegmentLabel
                 result[name]=arrayItem;
             });
+            console.log(result);
             this.setState({ result });
             this.setState({ step: 7 });
             this.setState({ firstTask: 1 });
@@ -152,7 +154,7 @@ export class Start extends Component {
                 this.nextSegment(1, 1, TaskID, SegInitialized, IsCompleted);
             }
             else { // confirm & move on
-                // this.submit();
+                this.submit();
                 window.location.href = '/Rating'+this.state.nextPth;
             }
         }
@@ -617,8 +619,8 @@ export class Start extends Component {
         // event.preventDefault();
     }
   render() {
-    const { step, Type, nType, Types, result, TaskID, SegInitialized, Rating, IsCompleted, IsImpaired, revisitTask, firstTask} = this.state;
-    const values = { Type, nType, Types, result, TaskID, SegInitialized, Rating, IsCompleted, IsImpaired, revisitTask, firstTask};
+    const { step, Type, nType, Types, result, TaskID, SegInitialized, Rating, IsCompleted, IsImpaired, revisitTask, firstTask, timeDurations} = this.state;
+    const values = { Type, nType, Types, result, TaskID, SegInitialized, Rating, IsCompleted, IsImpaired, revisitTask, firstTask, timeDurations};
     switch(step){
         case 1:
             return (

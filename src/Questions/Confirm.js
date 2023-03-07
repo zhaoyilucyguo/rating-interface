@@ -42,7 +42,7 @@ export class Confirm extends Component {
                 <ListItem key={res} sx={{ py: 1, px: 0 }}>
                   <ListItemText primary={res}/>
                   <Typography variant="body2">
-                    {values.result[res].rating.substring(0, 1)}
+                    {values.result[res] ? values.result[res].rating.substring(0, 1):null}
                     </Typography>
                 </ListItem>
               )

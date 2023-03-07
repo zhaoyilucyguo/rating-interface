@@ -13,6 +13,7 @@ class App extends Component{
     super(props);
     this.state = {
       pth: [],
+      fullPth: [],
       ptht: [],
       display: "block",
     }
@@ -27,7 +28,11 @@ componentDidMount() {
     axios.get(`http://localhost:5000/PatientTaskHandMapping`)
     .then(res => {
       const pth = res.data.filter(list => list.isSubmitted===true);
+      const fullPth = res.data;
+      console.log(res.data);
       this.setState({ pth });
+      this.setState({ fullPth });
+
     })
     axios.get(`http://localhost:5000/PTHTherapistMapping/`+parseInt(localStorage.getItem('therapistId')))
     .then(res => {
@@ -51,13 +56,12 @@ componentDidMount() {
           ptht.push(obj);
         }
       }
-      console.log(ptht);
       this.setState({ ptht });
     })
 }
 
   render(){
-    var {ptht}=this.state;
+    var {ptht, fullPth}=this.state;
 
   return (
    
@@ -71,7 +75,7 @@ componentDidMount() {
       {/* home page */}
       {
         localStorage.getItem('isLoggedIn') ? 
-        <Route path='/home' element={<Home/>} />: null
+        <Route path='/home' element={<Home ptht={ptht}/>} />: null
       }
       {/* rating */}
       {
@@ -84,6 +88,15 @@ componentDidMount() {
                 PATIENTID={list.patientId}
                 TASKID={list.taskId}
                 NEXT={list.next}
+                UNIMPAIREDPTH={
+                  fullPth.filter(fp => fp.patientId===list.patientId 
+                    && fp.taskId===list.taskId
+                    && fp.IsImpaired===false
+                    && fp.handId!==list.handId).length ? fullPth.filter(fp => fp.patientId===list.patientId 
+                      && fp.taskId===list.taskId
+                      && fp.IsImpaired===false
+                      && fp.handId!==list.handId)[0].id : undefined
+                }
               />
               // <div>{list.patientTaskHandMappingId}</div>
             }/>

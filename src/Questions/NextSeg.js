@@ -27,7 +27,7 @@ export class NextSeg extends Component {
         <div>
             <AppBar title="Rating" />
             <Typography variant="h6" gutterBottom>
-            Score for {values.Types[values.Type]} is {values.Rating}
+            Score for {values.Types[values.Type]} is {values.Rating.substring(0, 1)}
             </Typography>
             <Typography variant="h6" gutterBottom>
             Now move on to {values.Types[values.nType]}
