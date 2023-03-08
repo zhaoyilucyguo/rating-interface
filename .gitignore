@@ -24,8 +24,8 @@ yarn-debug.log*
 yarn-error.log*
 
 public/Videos/
-
 public/TrimmedVideos/
+
 
 
 /data
