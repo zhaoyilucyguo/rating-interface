@@ -23,8 +23,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-Videos/
-TrimmedVideos/
+public/Videos/
+
+public/TrimmedVideos/
+
 
 /data
 data
