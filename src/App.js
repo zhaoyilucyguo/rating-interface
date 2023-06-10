@@ -24,17 +24,16 @@ class App extends Component{
     localStorage.setItem('isLoggedIn', true);
     localStorage.setItem('therapistId', therapistId);
   }   
-componentDidMount() {
-    axios.get(`http://localhost:5000/PatientTaskHandMapping`)
+async componentDidMount() {
+    await axios.get(`http://localhost:5000/PatientTaskHandMapping`)
     .then(res => {
       const pth = res.data.filter(list => list.isSubmitted===true);
       const fullPth = res.data;
-      console.log(res.data);
       this.setState({ pth });
       this.setState({ fullPth });
 
     })
-    axios.get(`http://localhost:5000/PTHTherapistMapping/`+parseInt(localStorage.getItem('therapistId')))
+    await axios.get(`http://localhost:5000/PTHTherapistMapping/`+parseInt(localStorage.getItem('therapistId')))
     .then(res => {
       var data = res.data;
       var ptht = [];
@@ -49,6 +48,12 @@ componentDidMount() {
             obj.taskId = pthObj.taskId;
             obj.handId = pthObj.handId;
             obj.next = data[j+1].patientTaskHandMappingId;
+          }
+          else if (j === data.length-1){
+            obj.patientId = pthObj.patientId;
+            obj.taskId = pthObj.taskId;
+            obj.handId = pthObj.handId;
+            obj.next=undefined;
           }
           else{
             obj.next=undefined;
@@ -91,10 +96,11 @@ componentDidMount() {
                 UNIMPAIREDPTH={
                   fullPth.filter(fp => fp.patientId===list.patientId 
                     && fp.taskId===list.taskId
-                    && fp.IsImpaired===false
-                    && fp.handId!==list.handId).length ? fullPth.filter(fp => fp.patientId===list.patientId 
+                    && fp.isImpaired===false
+                    && fp.handId!==list.handId).length ? 
+                    fullPth.filter(fp => fp.patientId===list.patientId 
                       && fp.taskId===list.taskId
-                      && fp.IsImpaired===false
+                      && fp.isImpaired===false
                       && fp.handId!==list.handId)[0].id : undefined
                 }
               />

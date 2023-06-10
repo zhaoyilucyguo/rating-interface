@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createTheme, ThemeProvider, alpha } from '@mui/material/styles';
 import { List, ListItem, Divider, AppBar, Typography } from '@mui/material';
 import { orange, blue } from '@mui/material/colors';
+import DefinitionSection from './DefinitionSection';
 
 
 export class Completed extends Component {
@@ -53,7 +54,8 @@ export class Completed extends Component {
                     No
                 </ListItem>
             </List>
-            
+            {values.Types[values.Type]!=="Task" ? <DefinitionSection segment={values.Types[values.Type]}/> : null}
+
         </div>
       </ThemeProvider>
     )

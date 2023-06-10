@@ -24,13 +24,13 @@ export class Dropdown extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
-  componentDidMount() {
-    axios.get(`http://localhost:5000/PatientTaskHandMapping`)
+  async componentDidMount() {
+    await axios.get(`http://localhost:5000/PatientTaskHandMapping`)
     .then(res => {
       const pth = res.data.filter(list => list.isSubmitted===true);
       this.setState({ pth });
     })
-    axios.get(`http://localhost:5000/PTHTherapistMapping/`+parseInt(localStorage.getItem('therapistId')))
+    await axios.get(`http://localhost:5000/PTHTherapistMapping/`+parseInt(localStorage.getItem('therapistId')))
     .then(res => {
       var data = res.data;
       var ptht = [];
@@ -52,7 +52,6 @@ export class Dropdown extends Component {
           ptht.push(obj);
         }
       }
-      console.log(ptht);
       this.setState({ ptht });
     })
 }
@@ -157,8 +156,8 @@ export class Dropdown extends Component {
                 }}>
                   <Typography>
                     Rating {list.patientTaskHandMappingId}:
-                    {/* Patient {list.patientTaskHandMapping.patientId}, */}
-                    Task {list.patientTaskHandMapping.taskId}, 
+                    Patient {list.patientTaskHandMapping.patientId},
+                    Task {list.patientTaskHandMapping.taskId} 
                     {/* Hand {list.patientTaskHandMapping.handId} */}
                     <AiOutlineCheck size={20} color="green"/>
                   </Typography>
@@ -178,7 +177,7 @@ export class Dropdown extends Component {
                   <Typography>
                     Rating {list.patientTaskHandMappingId}:
                     Patient {list.patientTaskHandMapping.patientId},
-                    Task {list.patientTaskHandMapping.taskId}, 
+                    Task {list.patientTaskHandMapping.taskId}
                     {/* Hand {list.patientTaskHandMapping.handId} */}
                   </Typography>
                 </NavLink>

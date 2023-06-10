@@ -12,18 +12,18 @@ export class Home extends Component {
     this.state = {
       ptht: [],
       pth: [],
-      message: "Ratings Done",
-      done: 1
+      message: "Ratings To Do",
+      done: 0
     }
     this.changeList = this.changeList.bind(this);
   }
-  componentDidMount() {
-    axios.get(`http://localhost:5000/PatientTaskHandMapping`)
+  async componentDidMount() {
+    await axios.get(`http://localhost:5000/PatientTaskHandMapping`)
     .then(res => {
       const pth = res.data.filter(list => list.isSubmitted===true);
       this.setState({ pth });
     })
-    axios.get(`http://localhost:5000/PTHTherapistMapping/`+parseInt(localStorage.getItem('therapistId')))
+    await axios.get(`http://localhost:5000/PTHTherapistMapping/`+parseInt(localStorage.getItem('therapistId')))
     .then(res => {
       var data = res.data;
       var ptht = [];
@@ -45,13 +45,11 @@ export class Home extends Component {
           ptht.push(obj);
         }
       }
-      console.log(ptht);
       this.setState({ ptht });
     })
 }
 
   changeList = (input)=>{
-    // console.log(input);
     this.setState({done: input});
     if (input === 1){
       this.setState({message: "Ratings Done"});

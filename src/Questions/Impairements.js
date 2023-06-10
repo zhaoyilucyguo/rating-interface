@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AppBar, Button, FormGroup, FormControlLabel, Checkbox, Typography } from '@mui/material';
 import { orange } from '@mui/material/colors';
+import DefinitionSection from './DefinitionSection';
+
 // import FormGroup from '@mui/material/FormGroup';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
@@ -29,16 +31,17 @@ export class Impaired extends Component {
           'DMR': 'digit movement during release',
           'THS': 'trunk & head stabilization',
           'PP': 'palmar positioning (for gross motor section)',
+          'SA': 'smoothness and accuracy'
         },
         impairments: {
           2: ['SEAFR', 'TS', 'ROME', 'FPS'], //IP
           3: ['ROME', 'THS', 'FPS', 'SEAFR'], //"GIP",
           4: ['DPO', 'SAT', 'FPS', 'TS'], //M&TR
-          5: ['SEAFR', 'FPS', 'PP'], //"GT",
+          5: ['SEAFR', 'FPS', 'PP', 'THS'], //"GT",
           6: ['SEAFR', 'FPS', 'TS', 'WPAT'], //"TG",
           7: ['DPO', 'SAT', 'FPS', 'TS'], //M&TR_2
           8: ['FPO', 'DMR', 'FPS', 'TS'], // P&R
-          10: ['WPAT', 'HA', 'DP'] //T
+          10: ['WPAT', 'HA', 'DP', 'SA'] //T
         },
     }
   }
@@ -66,11 +69,14 @@ export class Impaired extends Component {
                 control={
                 <Checkbox 
                 onClick={handleChange('Impairments', impairment)}/>} 
-                label={this.state.impairment_lst[impairment]} />
+                label={this.state.impairment_lst[impairment]}
+                id={"impair"+impairment} 
+                 />
               )
             }
             </FormGroup>
-           
+            {values.Types[values.Type]!=="Task" ? <DefinitionSection segment={values.Types[values.Type]}/> : null}
+
             <Button
                 label="Back"
                 style={StyleSheet.button}
@@ -80,6 +86,7 @@ export class Impaired extends Component {
                 onClick={()=>nextStep()}
             >Continue</Button>
         </div>
+
       </ThemeProvider>
     )
   }

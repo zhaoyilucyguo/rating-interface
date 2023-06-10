@@ -38,8 +38,13 @@ export class NextSeg extends Component {
                 onClick={()=>
                   prevStep(
                     values.Type === 1 ? 
-                    values.IsCompleted === 1 ? 5 : 3 : 
-                    values.IsCompleted === 1 ? values.IsImpaired === 1 ? 6 : 5 : 4)}
+                    values.IsCompleted === 1 ? 5 : 
+                    values.TaskID > 10 && values.TaskID < 17 ? 10 : 3 : 
+                    values.IsCompleted === 1 ? values.IsImpaired === 1 ? 6 : 5 : 
+                    values.IsImpaired === 1 ? 6 : 5)}
+                    // 4:initialized
+                    // 5:impaired
+                    // 6:impairments
             >Back</Button>
             <Button
                 onClick={()=>nextStep()}

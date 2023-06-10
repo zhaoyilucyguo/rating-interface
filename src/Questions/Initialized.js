@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { createTheme, ThemeProvider, alpha } from '@mui/material/styles';
 import { List, ListItem, Divider, AppBar, Button, Typography } from '@mui/material';
 import { orange } from '@mui/material/colors';
+import DefinitionSection from './DefinitionSection';
+
 
 const style = {
     width: '100%',
@@ -12,12 +14,13 @@ export class Initialized extends Component {
   constructor(props){
     super(props);
     this.state = {
+      values: this.props.values,
         handleChange: this.props.handleChange,
         prevStep: this.props.prevStep
     }
   }
   render() {
-    const { prevStep, handleChange } = this.props;
+    const { prevStep, handleChange, values } = this.props;
     const theme = createTheme({
         status: {
           danger: orange[500],
@@ -53,12 +56,15 @@ export class Initialized extends Component {
                     No
                 </ListItem>
             </List>
+            {values.Types[values.Type]!=="Task" ? <DefinitionSection segment={values.Types[values.Type]}/> : null}
+
             <Button
                 label="Back"
                 style={StyleSheet.button}
                 onClick={()=>prevStep(1)}
             >Back</Button>
         </div>
+
       </ThemeProvider>
     )
   }
