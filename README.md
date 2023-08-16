@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# Stroke Patient Rehabilitation Rating Front End
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Stroke Patient Rehabilitation Rating Front End is a user interface designed to offer specialized functionalities that streamline the process of rating stroke patient rehabilitation progress. This front end is tailored to meet the unique requirements of researchers working with stroke patients and aims to provide high-quality data collection and analysis capabilities.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User-Friendly Interface:** The front end provides an intuitive and user-friendly interface, ensuring that researchers can efficiently navigate and utilize the system without unnecessary complications.
 
-### `npm start`
+- **Rating Capabilities:** Researchers can easily input and record rehabilitation progress ratings for stroke patients. The system is designed to capture a range of rehabilitation metrics and data points, enabling comprehensive and accurate assessments.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Data Quality Enhancement:** The front end is equipped with features that enhance the quality of collected data. This includes validation mechanisms to minimize errors during data entry and rating processes.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Real-time Updates:** Utilizing state management techniques, the front end offers real-time updates as researchers input ratings. This ensures that researchers have immediate access to the most recent data and can track patient progress effectively.
 
-### `npm test`
+- **Material UI Integration:** The user interface is built using the Material UI framework, ensuring a consistent and visually appealing design that aligns with modern design standards.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **React Framework:** The front end is developed using the React framework, allowing for efficient component-based development and ensuring scalability as the system grows.
 
-### `npm run build`
+- **API Integration:** Integration with relevant APIs facilitates seamless communication with the backend systems, enabling data synchronization and retrieval.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies Used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **React:** A JavaScript library used for building interactive user interfaces. It enables the development of reusable UI components.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Material UI:** A popular React UI framework that provides pre-designed components and styles for creating modern and responsive user interfaces.
 
-### `npm run eject`
+- **APIs:** The front end integrates with APIs to establish a connection with the backend systems responsible for data storage and management.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **State Management:** Utilizing state management libraries (such as Redux), the front end efficiently manages the application's state, ensuring smooth data flow and updates.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation and Usage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone this repository to your local machine.
+2. Navigate to the project directory using the command line.
+3. Run `npm install` to install the required dependencies.
+4. Configure the API endpoints in the appropriate configuration files.
+5. Run `npm start` to launch the development server.
+6. Access the front end through your browser at `http://localhost:3000`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
