@@ -56,6 +56,10 @@ export class Dropdown extends Component {
     })
 }
   handleClick(event: React.MouseEvent<HTMLElement>) {
+    let isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn === false){
+      return;
+    }
     event.preventDefault();
     if (this.state.open === false){
       this.setState({anchorEl: event.currentTarget});
@@ -145,6 +149,26 @@ export class Dropdown extends Component {
               <Typography>Home</Typography>
             </NavLink>
           </MenuItem>
+          
+          {
+            ptht.filter(list => list.isSubmitted===false).map
+            (
+              list=>
+              <MenuItem onClick={this.handleClose} key={"PTH"+list.patientTaskHandMappingId}>
+                <NavLink to={'/Rating'+list.patientTaskHandMappingId} id={list.patientTaskHandMappingId} style={{ textDecoration: 'none' }}
+                onClick={()=>{
+                  // this.handleClose();
+                }}>
+                  <Typography>
+                    Rating {list.patientTaskHandMappingId}:
+                    Patient {list.patientTaskHandMapping.patientId},
+                    Task {list.patientTaskHandMapping.taskId}
+                    {/* Hand {list.patientTaskHandMapping.handId} */}
+                  </Typography>
+                </NavLink>
+              </MenuItem>
+            )
+          } 
           {
             ptht.filter(list => list.isSubmitted===true).map
             (
@@ -160,25 +184,6 @@ export class Dropdown extends Component {
                     Task {list.patientTaskHandMapping.taskId} 
                     {/* Hand {list.patientTaskHandMapping.handId} */}
                     <AiOutlineCheck size={20} color="green"/>
-                  </Typography>
-                </NavLink>
-              </MenuItem>
-            )
-          } 
-          {
-            ptht.filter(list => list.isSubmitted===false).map
-            (
-              list=>
-              <MenuItem onClick={this.handleClose} key={"PTH"+list.patientTaskHandMappingId}>
-                <NavLink to={'/Rating'+list.patientTaskHandMappingId} id={list.patientTaskHandMappingId} style={{ textDecoration: 'none' }}
-                onClick={()=>{
-                  // this.handleClose();
-                }}>
-                  <Typography>
-                    Rating {list.patientTaskHandMappingId}:
-                    Patient {list.patientTaskHandMapping.patientId},
-                    Task {list.patientTaskHandMapping.taskId}
-                    {/* Hand {list.patientTaskHandMapping.handId} */}
                   </Typography>
                 </NavLink>
               </MenuItem>
